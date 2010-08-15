@@ -1,8 +1,5 @@
 import re
 from BeautifulSoup import BeautifulStoneSoup as BSS
-from PMS import *
-from PMS.Objects import *
-from PMS.Shortcuts import *
 
 AC_PREFIX = '/music/adamcarolla'
 AC_FEED   = 'http://www.adamcarolla.com/ACPBlog/feed/'
