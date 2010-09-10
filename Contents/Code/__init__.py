@@ -5,6 +5,7 @@ AC_PREFIX = '/music/adamcarolla'
 AC_FEED   = 'http://feeds.feedburner.com/TheAdamCarollaPodcast?format=xml'
 #AC_FEED   = 'http://www.adamcarolla.com/ACPBlog/feed/'
 AC_NS     = { 'c':'http://purl.org/rss/1.0/modules/content/'}
+MRSS      = { 'media':'http://search.yahoo.com/mrss/'}
 
 CACHE_INTERVAL = 3600*1
 
@@ -38,16 +39,8 @@ def MainMenu():
       soup = BSS(summary, convertEntities=BSS.XML_ENTITIES) 
       summary = soup.contents[0]
       subtitle = Datetime.ParseDate(post.find('pubDate').text).strftime('%a %b %d, %Y')
-    
-      desc = XML.ElementFromString(post.xpath('c:encoded', namespaces=AC_NS)[0].text, True)
-      images = desc.xpath('//img')
-      thumb = None
-      for img in images:
-        src = img.get('src')
-        if src.find('podtrac') == -1:
-          thumb = src
-          break
-    
+      thumb = post.xpath('media:thumbnail', namespaces=MRSS)[0].get('url')
+
       dir.Append(TrackItem(enc.get('url'), title, 'Adam Carolla', 'Carolla Radio', summary=summary, subtitle=subtitle, duration=duration, length=enc.get('length'), thumb=thumb))
 
   return dir
