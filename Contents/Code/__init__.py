@@ -2,7 +2,8 @@ import re
 from BeautifulSoup import BeautifulStoneSoup as BSS
 
 AC_PREFIX = '/music/adamcarolla'
-AC_FEED   = 'http://www.adamcarolla.com/ACPBlog/feed/'
+AC_FEED   = 'http://feeds.feedburner.com/TheAdamCarollaPodcast?format=xml'
+#AC_FEED   = 'http://www.adamcarolla.com/ACPBlog/feed/'
 AC_NS     = { 'c':'http://purl.org/rss/1.0/modules/content/'}
 
 CACHE_INTERVAL = 3600*1
