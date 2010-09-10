@@ -32,7 +32,7 @@ def MainMenu():
     
     enc = post.find('enclosure')
     if enc is not None:
-      duration = int(enc.get('length'))/8000*1000
+      duration = int(enc.get('length'))/12000*1000
       summary = post.find('description').text
       soup = BSS(summary, convertEntities=BSS.XML_ENTITIES) 
       summary = soup.contents[0]
