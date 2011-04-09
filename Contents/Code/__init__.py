@@ -16,7 +16,7 @@ def Start():
   MediaContainer.title1 = 'Adam Carolla'
   MediaContainer.content = 'Items'
   MediaContainer.art = R('art-default.jpg')
-  HTTP.SetCacheTime(CACHE_INTERVAL)
+  HTTP.CacheTime = CACHE_INTERVAL
 
 ####################################################################################################
 def UpdateCache():
@@ -39,7 +39,10 @@ def MainMenu():
       soup = BSS(summary, convertEntities=BSS.XML_ENTITIES) 
       summary = soup.contents[0]
       subtitle = Datetime.ParseDate(post.find('pubDate').text).strftime('%a %b %d, %Y')
-      thumb = post.xpath('media:thumbnail', namespaces=MRSS)[0].get('url')
+      try:
+        thumb = post.xpath('media:thumbnail', namespaces=MRSS)[0].get('url')
+      except:
+        thumb = R('icon-default.jpg')
 
       dir.Append(TrackItem(enc.get('url'), title, 'Adam Carolla', 'Carolla Radio', summary=summary, subtitle=subtitle, duration=duration, length=enc.get('length'), thumb=thumb))
 
