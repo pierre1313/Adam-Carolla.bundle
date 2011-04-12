@@ -16,19 +16,21 @@ def Start():
   MediaContainer.title1 = 'Adam Carolla'
   MediaContainer.content = 'Items'
   MediaContainer.art = R('art-default.jpg')
+  DirectoryItem.thumb = R('icon-default.jpg')
   HTTP.CacheTime = CACHE_INTERVAL
 
 ####################################################################################################
 def UpdateCache():
   HTTP.Request(AC_FEED)
 
+####################################################################################################
 def Thumb(url):
   try:
     data = HTTP.Request(url, cacheTime=CACHE_1WEEK).content
     return DataObject(data, 'image/jpeg')
   except:
-    return Redirect(R('icon-default.jpg'))
-  
+    return Redirect(R("icon-default.jpg"))  
+
 ####################################################################################################
 def MainMenu():
   dir = MediaContainer(filelabel='%T')
@@ -47,8 +49,8 @@ def MainMenu():
       summary = soup.contents[0]
       subtitle = Datetime.ParseDate(post.find('pubDate').text).strftime('%a %b %d, %Y')
       thumb = post.xpath('media:thumbnail', namespaces=MRSS)[0].get('url')
-
-      dir.Append(TrackItem(enc.get('url'), title, 'Adam Carolla', 'Carolla Radio', summary=summary, subtitle=subtitle, duration=duration, length=enc.get('length'), thumb=Function(Thumb, url=thumb)))
+      
+      dir.Append(TrackItem(enc.get('url'), title, 'Adam Carolla', 'Carolla Radio', summary=summary, subtitle=subtitle, duration=duration, length=enc.get('length'), thumb=Function(Thumb,url=thumb)))
 
   return dir
   
